@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='D:/Books/Ruby/Projects/gtk_tests'
+let g:netrw_dirhist_2='C:\Documents and Settings\John'
+let g:netrw_dirhist_3='D:\Books\ruby\Projects'
+let g:netrw_dirhist_4='D:/Books/ruby/Projects/torrent_test'
