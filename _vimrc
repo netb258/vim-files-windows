@@ -10,7 +10,7 @@ filetype plugin on
 filetype indent on
 
 "Plugins directory.
-call pathogen#infect('PLUGIN_DIR')
+call pathogen#infect('PLUGINS_DIR')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
@@ -41,7 +41,14 @@ set history=100
 
 "Status line settings
 set laststatus=2 "Always show status line
-let g:lightline = {"colorscheme": "solarized"} "Use lightline plugin with solarized colors
+let g:airline_theme = 'solarized' "Use airline plugin with solarized colors
+
+"I don't need fancy separators:
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline#extensions#tabline#enabled = 1
 
 "Enable the backspace key in insert mode.
 set backspace=2
@@ -77,7 +84,7 @@ nnoremap <Leader>l :call ToggleLang()<cr>
 let g:EasyMotion_do_mapping = 0
 
 "Bi-directional find motion
-map <Leader>f <Plug>(easymotion-s)
+map <Leader><Leader> <Plug>(easymotion-s)
 
 "JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
@@ -92,7 +99,7 @@ nnoremap <Leader>u :GundoToggle<CR>
 
 "---------------------------------- Specific Settings -----------------------------------
 
-"Load ruby utilities on startup
+"Include some small ruby utils I wrote.
 ruby require 'RUBY_SCRIPT'
 
 "I want to be able to jump between these:
@@ -129,9 +136,17 @@ let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 let g:SimpleJsIndenter_BriefMode = 1
 
+"Control p settings.
+let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
+let g:ctrlp_use_caching = 0
+
 "Simple command to bring up nerd tree.
 command! TREE NERDTreeToggle
 cabbrev tree TREE
+
+"Improved buffer listing command
+command! LS Unite buffer
+cabbrev ls LS
 
 "This default diff function comes with the windows version of vim.
 set diffexpr=MyDiff()
