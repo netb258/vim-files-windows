@@ -53,6 +53,11 @@ let g:airline#extensions#tabline#enabled = 1
 "Enable the backspace key in insert mode.
 set backspace=2
 
+"A very important setting that I may change in the future.
+"It tells VIM to use It's old regex engine, instead of the newer one.
+"I've had performance issues with the newer engine (especially on Ruby files).
+set re=1
+
 "----------------------------------- Custom Mappings ------------------------------------
 
 "Map leader p to paste from clipboard
@@ -112,11 +117,8 @@ set guioptions-=T
 set nobackup
 set nowritebackup
 
-"I don't want to highlight matching parenthesis (I do this with % when needed).
-let g:loaded_matchparen = 1
-
-"I don't want a special background for the current line (I do this with V as needed).
-set nocursorline
+"Highlight the current line.
+set cursorline
 
 "I want pwd to be the same as the file I'm editing.
 set autochdir
