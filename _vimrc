@@ -39,24 +39,33 @@ set fileencoding=utf-8 "Sets the encoding for the actual file being edited.
 "Remember more commands and searches
 set history=100
 
+"I don't want backups for every file.
+set nobackup
+set nowritebackup
+
+"I want pwd to be the same as the file I'm editing.
+set autochdir
+
 "Status line settings
 set laststatus=2 "Always show status line
 let g:airline_theme = 'solarized' "Use airline plugin with solarized colors
-
 "I don't need fancy separators:
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
+let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
 
 "Enable the backspace key in insert mode.
 set backspace=2
 
+"When I close a tab, remove the buffer.
+set nohidden
+
 "A very important setting that I may change in the future.
 "It tells VIM to use It's old regex engine, instead of the newer one.
-"I've had performance issues with the newer engine (especially on Ruby files).
-set re=1
+set re=1 "I've had performance issues with the newer engine (especially on Ruby files).
 
 "----------------------------------- Custom Mappings ------------------------------------
 
@@ -97,7 +106,10 @@ map <Leader>k <Plug>(easymotion-k)
 
 "Search mapping
 map <Leader>n <Plug>(easymotion-bd-n)
-nnoremap <Leader>h :noh<cr>
+
+"I want the current search highlight to be cleared when I hit escape.
+nnoremap <esc> :noh<cr><esc>
+inoremap <esc> <esc>:noh<cr>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
@@ -107,21 +119,20 @@ nnoremap <Leader>u :GundoToggle<CR>
 "Include some small ruby utils I wrote.
 ruby require 'RUBY_SCRIPT'
 
+"Enable command and file-name completion with <tab>.
+set wildmenu
+set wildmode=list:longest,full
+
 "I want to be able to jump between these:
 set matchpairs=(:),{:},[:],<:>
 
+"Disable the matchparens plugin by default.
+let loaded_matchparen = 1
+"It will be enabled only for lisp files:
+autocmd Filetype clojure,racket unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
+
 "I don't want the gui tool bar.
 set guioptions-=T
-
-"I don't want backups for every file.
-set nobackup
-set nowritebackup
-
-"Highlight the current line.
-set cursorline
-
-"I want pwd to be the same as the file I'm editing.
-set autochdir
 
 "Font for gvim.
 set guifont=Courier_New:h11:cDEFAULT
