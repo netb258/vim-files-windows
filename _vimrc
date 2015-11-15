@@ -108,8 +108,8 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>n <Plug>(easymotion-bd-n)
 
 "I want the current search highlight to be cleared when I hit escape.
-nnoremap <esc> :noh<cr><esc>
-inoremap <esc> <esc>:noh<cr>
+nnoremap <silent> <esc> :noh<cr><esc>
+inoremap <silent> <esc> <esc>:noh<cr>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
