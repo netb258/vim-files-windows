@@ -15,7 +15,7 @@ call pathogen#infect('PLUGINS_DIR')
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
 
-"Leader mappings
+"My Leader key
 let mapleader="\<space>"
 
 "Search options
@@ -46,16 +46,8 @@ set nowritebackup
 "I want pwd to be the same as the file I'm editing.
 set autochdir
 
-"Status line settings
-set laststatus=2 "Always show status line
-let g:airline_theme = 'solarized' "Use airline plugin with solarized colors
-"I don't need fancy separators:
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
-let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
+"Always show status line
+set laststatus=2
 
 "Enable the backspace key in insert mode.
 set backspace=2
@@ -66,6 +58,13 @@ set nohidden
 "A very important setting that I may change in the future.
 "It tells VIM to use It's old regex engine, instead of the newer one.
 set re=1 "I've had performance issues with the newer engine (especially on Ruby files).
+
+"Enable command and file-name completion with <tab>.
+set wildmenu
+set wildmode=list:longest,full
+
+"I want to be able to jump between these:
+set matchpairs=(:),{:},[:],<:>
 
 "----------------------------------- Custom Mappings ------------------------------------
 
@@ -122,19 +121,12 @@ nnoremap <silent> <esc> :noh<cr><esc>
 inoremap <silent> <esc> <esc>:noh<cr>
 
 "Mapping to show the undo tree
-nnoremap <Leader>u :GundoToggle<CR>
+nnoremap <Leader>u :UndotreeToggle<CR>
 
-"---------------------------------- Specific Settings -----------------------------------
+"----------------------------------- Plugins and GUI ------------------------------------
 
 "Include some small ruby utils I wrote.
-ruby require 'RUBY_SCRIPT'
-
-"Enable command and file-name completion with <tab>.
-set wildmenu
-set wildmode=list:longest,full
-
-"I want to be able to jump between these:
-set matchpairs=(:),{:},[:],<:>
+ruby require 'RUBY_UTILS_DIR'
 
 "Disable the matchparens plugin by default.
 let loaded_matchparen = 1
@@ -162,6 +154,16 @@ let g:SimpleJsIndenter_BriefMode = 1
 "Control p settings.
 let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
 let g:ctrlp_use_caching = 0
+
+"VIM airline settings:
+let g:airline_theme = 'solarized'
+"I don't need fancy separators:
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
+let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
 
 "Simple command to bring up nerd tree.
 command! TREE NERDTreeToggle
