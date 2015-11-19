@@ -104,6 +104,16 @@ map <Leader><Leader> <Plug>(easymotion-s)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
+"Make yanking distant lines easier:
+nmap yj y<Plug>(easymotion-j)
+nmap yk y<Plug>(easymotion-k)
+nmap <Leader>yj "+y<Plug>(easymotion-j)
+nmap <Leader>yk "+y<Plug>(easymotion-k)
+
+"Make deleting distant lines easier:
+nmap dj d<Plug>(easymotion-j)
+nmap dk d<Plug>(easymotion-k)
+
 "Search mapping
 map <Leader>n <Plug>(easymotion-bd-n)
 
