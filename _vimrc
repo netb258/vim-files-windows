@@ -121,7 +121,7 @@ nnoremap <silent> <esc> :noh<cr><esc>
 inoremap <silent> <esc> <esc>:noh<cr>
 
 "Mapping to show the undo tree
-nnoremap <Leader>u :UndotreeToggle<CR>
+nnoremap <Leader>u :GundoToggle<CR>
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
