@@ -15,7 +15,7 @@ call pathogen#infect('PLUGINS_DIR')
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
 
-"My Leader key
+"My Leader is space
 let mapleader="\<space>"
 
 "Search options
@@ -35,9 +35,6 @@ set expandtab
 "Encoding settings
 set encoding=utf-8     "Sets the encoding for VIM's buffers and registers.
 set fileencoding=utf-8 "Sets the encoding for the actual file being edited.
-
-"Remember more commands and searches
-set history=100
 
 "I don't want backups for every file.
 set nobackup
@@ -62,6 +59,9 @@ set re=1 "I've had performance issues with the newer engine (especially on Ruby 
 "Enable command and file-name completion with <tab>.
 set wildmenu
 set wildmode=list:longest,full
+
+"Remember more commands and searches
+set history=100
 
 "I want to be able to jump between these:
 set matchpairs=(:),{:},[:],<:>
@@ -126,23 +126,23 @@ nnoremap <Leader>u :GundoToggle<CR>
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Include some small ruby utils I wrote.
-ruby require 'RUBY_UTILS_DIR'
+ruby require 'RUBY_UTILS'
 
 "Disable the matchparens plugin by default.
 let loaded_matchparen = 1
 "It will be enabled only for lisp files:
-autocmd Filetype clojure,racket unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
+autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
 
 "I don't want the gui tool bar.
 set guioptions-=T
 
 "Font for gvim.
-set guifont=Courier_New:h11:cDEFAULT
+set guifont=Powerline_Consolas:h11:cDEFAULT
 
 "Window size for gvim.
 if has("gui_running")
-  set lines=47
-  set columns=120
+  set lines=42
+  set columns=130
 endif
 
 "HTML INDENT SETTINGS.
@@ -157,11 +157,11 @@ let g:ctrlp_use_caching = 0
 
 "VIM airline settings:
 let g:airline_theme = 'solarized'
-"I don't need fancy separators:
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+"Airline separators:
+let g:airline_powerline_fonts = 1
+let g:airline_symbols = {}
+let g:airline_symbols.linenr = '|'
+"Tabline settings:
 let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
 let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
 
