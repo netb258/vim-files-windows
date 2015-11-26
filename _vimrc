@@ -160,7 +160,7 @@ let g:airline_theme = 'solarized'
 "Airline separators:
 let g:airline_powerline_fonts = 1
 let g:airline_symbols = {}
-let g:airline_symbols.linenr = '|'
+let g:airline_symbols.linenr = '| '
 "Tabline settings:
 let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
 let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
