@@ -137,7 +137,7 @@ autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.
 set guioptions-=T
 
 "Font for gvim.
-set guifont=Powerline_Consolas:h11:cDEFAULT
+set guifont=Powerline_Consolas:h12:cDEFAULT
 
 "Window size for gvim.
 if has("gui_running")
