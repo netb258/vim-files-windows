@@ -59,7 +59,6 @@ set re=1 "I've had performance issues with the newer engine (especially on Ruby 
 "Enable command and file-name completion with <tab>.
 set wildmenu
 set wildmode=list:longest,full
-
 "Remember more commands and searches
 set history=100
 
@@ -142,7 +141,8 @@ set guifont=Powerline_Consolas:h12:cDEFAULT
 "Window size for gvim.
 if has("gui_running")
   set lines=42
-  set columns=130
+  set columns=120
+  winpos 85 30
 endif
 
 "HTML INDENT SETTINGS.
