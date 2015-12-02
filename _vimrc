@@ -1,30 +1,21 @@
+"----------------------------------- General Settings -----------------------------------
+
 "Disable strict vi compatability
 set nocompatible
 
-"----------------------------------- General Settings -----------------------------------
-
-"Enable filetype plugins
+"Enable colors and plugins
 syntax on
 filetype on
 filetype plugin on
 filetype indent on
 
-"Plugins directory.
+"Plugins directory
 call pathogen#infect('PLUGINS_DIR')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
 
-"My Leader is space
-let mapleader="\<space>"
-
-"Search options
-set incsearch
-set hlsearch
-set ignorecase "use case insensitive searching
-set smartcase  "^ unless a capital letter is used
-
-"I want to see the line number on the side.
+"Show line number on the side
 set number
 
 "Tabs and spaces
@@ -33,39 +24,59 @@ set shiftwidth=2
 set expandtab
 
 "Encoding settings
-set encoding=utf-8     "Sets the encoding for VIM's buffers and registers.
-set fileencoding=utf-8 "Sets the encoding for the actual file being edited.
+set encoding=utf-8     "Sets the encoding for VIM's buffers and registers
+set fileencoding=utf-8 "Sets the encoding for the actual file being edited
 
-"I don't want backups for every file.
+"Search options
+set incsearch
+set hlsearch
+set ignorecase "use case insensitive searching
+set smartcase  "^ unless a capital letter is used
+
+"Disable backups for every file
 set nobackup
 set nowritebackup
 
-"I want pwd to be the same as the file I'm editing.
+"I want pwd to be the same as the file I'm editing
 set autochdir
+
+"Enable the backspace key in insert mode
+set backspace=2
+
+"A very important setting that I may change in the future
+"It tells VIM to use It's old regex engine, instead of the newer one
+set re=1 "I've had performance issues with the newer engine (especially on Ruby files)
+
+"I want to be able to jump between these
+set matchpairs=(:),{:},[:],<:>
+
+"Enable command and file-name completion with <tab>
+set wildmenu
+set wildmode=list:longest,full
+"Remember more commands and searches
+set history=100 
 
 "Always show status line
 set laststatus=2
 
-"Enable the backspace key in insert mode.
-set backspace=2
-
-"When I close a tab, remove the buffer.
-set nohidden
-
-"A very important setting that I may change in the future.
-"It tells VIM to use It's old regex engine, instead of the newer one.
-set re=1 "I've had performance issues with the newer engine (especially on Ruby files).
-
-"Enable command and file-name completion with <tab>.
-set wildmenu
-set wildmode=list:longest,full
-"Remember more commands and searches
-set history=100
-
-"I want to be able to jump between these:
-set matchpairs=(:),{:},[:],<:>
+"Status line settings
+set statusline=\ %t      "show filename
+set statusline+=\ »\     "small visual separator left
+set statusline+=%m       "modified flag
+set statusline+=%r       "read only flag
+set statusline+=%y       "filetype
+set statusline+=%=       "left/right separator
+set statusline+=%{strlen(&fenc)?&fenc:'none'}[ "file encoding
+set statusline+=%{&ff}]  "file format
+set statusline+=\ «      "small visual separator right
+set statusline+=\ %P\ \| "percent through file
+set statusline+=\ %l\ :  "current line
+set statusline+=\ %c\    "current column
 
 "----------------------------------- Custom Mappings ------------------------------------
+
+"My Leader is space
+let mapleader="\<space>"
 
 "Map leader p to paste from clipboard
 noremap <Leader>p "+p
@@ -80,7 +91,7 @@ noremap <Leader>Y "+Y
 "Opening tabs
 nnoremap <Leader>t :tabnew<cr>
 
-"Small function to toggle from English to Bulgarian.
+"Small function to toggle from English to Bulgarian
 function ToggleLang()
   if &keymap == "bulgarian-phonetic"
     set keymap=
@@ -89,7 +100,7 @@ function ToggleLang()
   endif
 endfunction
 
-"Simple mapping to call the function.
+"Simple mapping to call the function
 nnoremap <Leader>l :call ToggleLang()<cr>
 
 "Disable default easy-motion mappings
@@ -102,78 +113,74 @@ map <Leader><Leader> <Plug>(easymotion-s)
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-"Make yanking distant lines easier:
+"Make yanking distant lines easier
 nmap yj y<Plug>(easymotion-j)
 nmap yk y<Plug>(easymotion-k)
 nmap <Leader>yj "+y<Plug>(easymotion-j)
 nmap <Leader>yk "+y<Plug>(easymotion-k)
 
-"Make deleting distant lines easier:
+"Make deleting distant lines easier
 nmap dj d<Plug>(easymotion-j)
 nmap dk d<Plug>(easymotion-k)
 
 "Search mapping
 map <Leader>n <Plug>(easymotion-bd-n)
 
-"I want the current search highlight to be cleared when I hit escape.
+"I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
 inoremap <silent> <esc> <esc>:noh<cr>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
 
+"Better tab navigation
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
-"Include some small ruby utils I wrote.
+"Include some small ruby utils I wrote
 ruby require 'RUBY_UTILS'
 
-"Disable the matchparens plugin by default.
+"Disable the matchparens plugin by default
 let loaded_matchparen = 1
-"It will be enabled only for lisp files:
+"It will be enabled only for lisp files
 autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
 
-"I don't want the gui tool bar.
-set guioptions-=T
+"Gvim options
+set guioptions-=T "I don't want the gui tool bar
+set guitablabel=%N:%M%t " Show tab numbers
+set guifont=Courier_New:h11:cDEFAULT "Font for gvim
 
-"Font for gvim.
-set guifont=Powerline_Consolas:h12:cDEFAULT
-
-"Window size for gvim.
+"Window size for gvim
 if has("gui_running")
-  set lines=42
-  set columns=120
-  winpos 85 30
+  set lines=45
+  set columns=110
+  winpos 125 60
 endif
 
-"HTML INDENT SETTINGS.
+"HTML INDENT SETTINGS
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 let g:SimpleJsIndenter_BriefMode = 1
 
-"Control p settings.
+"Control p settings
 let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
 let g:ctrlp_use_caching = 0
 
-"VIM airline settings:
-let g:airline_theme = 'solarized'
-"Airline separators:
-let g:airline_powerline_fonts = 1
-let g:airline_symbols = {}
-let g:airline_symbols.linenr = '| '
-"Tabline settings:
-let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
-let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
-
-"Simple command to bring up nerd tree.
+"Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
 
-"Improved buffer listing command
-command! LS Unite buffer
-cabbrev ls LS
-
-"This default diff function comes with the windows version of vim.
+"This default diff function comes with the windows version of vim
 set diffexpr=MyDiff()
 function MyDiff()
   let opt = '-a --binary '
