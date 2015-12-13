@@ -123,8 +123,13 @@ nmap <Leader>yk "+y<Plug>(easymotion-k)
 nmap dj d<Plug>(easymotion-j)
 nmap dk d<Plug>(easymotion-k)
 
-"Search mapping
+"Search mappings
 map <Leader>n <Plug>(easymotion-bd-n)
+
+"Change VIM's default regexp scheme, now all characters are literals in searches
+"If I want to togge this I can simply press backspace and type small v
+noremap / /\V
+noremap ? ?\V
 
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
@@ -143,6 +148,9 @@ nnoremap <leader>6 6gt
 nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
+
+"With this: Just record a scratch macro with qq, then play it back with backspace
+nnoremap <bs> @q
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
