@@ -152,6 +152,13 @@ nnoremap <leader>9 9gt
 "With this: Just record a scratch macro with qq, then play it back with backspace
 nnoremap <bs> @q
 
+"Makes the above mapping work in visual mode (can't happen without the norm command)
+"I also want all macros to start at the beginning of the line for this mode
+vnoremap <silent> <bs> :norm ^@q<cr>
+
+"Make the q register start out empty
+nnoremap qq qqqqq
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Include some small ruby utils I wrote
