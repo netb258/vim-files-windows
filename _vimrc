@@ -159,8 +159,8 @@ vnoremap <silent> <bs> :norm ^@q<cr>
 "Make the q register start out empty
 nnoremap qq qqqqq
 
-"Easier way to clone a paragraph
-noremap cp yap<S-}>p
+"Easier way to clone a paragraph (I think of it as get lines)
+noremap gl yap<S-}>p
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
