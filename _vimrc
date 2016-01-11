@@ -162,6 +162,21 @@ nnoremap qq qqqqq
 "Easier way to clone a paragraph (I think of it as get lines)
 noremap gl yap<S-}>p
 
+"Mapping for 'change inside pair'
+nnoremap ci% %v%lohs
+"Mapping for 'change around pair'
+nnoremap ca% %v%s
+
+"Mapping for 'delete inside pair'
+nnoremap di% %v%lohd
+"Mapping for 'delete around pair'
+nnoremap da% %v%d
+
+"Mapping for 'visual select inside pair'
+nnoremap vi% %v%loh
+"Mapping for 'visual select around pair'
+nnoremap va% %v%
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Include some small ruby utils I wrote
