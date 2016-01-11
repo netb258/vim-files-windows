@@ -150,30 +150,31 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 "With this: Just record a scratch macro with qq, then play it back with backspace
-nnoremap <bs> ^@q
+nnoremap <bs> @q
 
 "Makes the above mapping work in visual mode (can't happen without the norm command)
 "I also want all macros to start at the beginning of the line for this mode
 vnoremap <silent> <bs> :norm ^@q<cr>
 
 "Make the q register start out empty
-nnoremap qq ^qqqqq
+nnoremap qq qqqqq
 
 "Easier way to clone a paragraph (I think of it as get lines)
 noremap gl yap<S-}>p
 
 "Mapping for 'change inside pair'
-nnoremap ci% %v%lohs
+"This line: matchstr(getline('.'), '\%' . col('.') . 'c.'), gets the char under the cursor
+nnoremap <silent> ci% %:call feedkeys("ci" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
 "Mapping for 'change around pair'
-nnoremap ca% %v%s
+nnoremap <silent> ca% %:call feedkeys("ca" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
 
 "Mapping for 'delete inside pair'
-nnoremap di% %v%lohd
+nnoremap <silent> di% %:call feedkeys("di" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
 "Mapping for 'delete around pair'
-nnoremap da% %v%d
+nnoremap <silent> da% %:call feedkeys("da" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
 
 "Mapping for 'visual select inside pair'
-nnoremap vi% %v%loh
+nnoremap <silent> vi% %:call feedkeys("vi" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
 "Mapping for 'visual select around pair'
 nnoremap va% %v%
 
