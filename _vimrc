@@ -150,14 +150,14 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
 "With this: Just record a scratch macro with qq, then play it back with backspace
-nnoremap <bs> @q
+nnoremap <bs> ^@q
 
 "Makes the above mapping work in visual mode (can't happen without the norm command)
 "I also want all macros to start at the beginning of the line for this mode
 vnoremap <silent> <bs> :norm ^@q<cr>
 
 "Make the q register start out empty
-nnoremap qq qqqqq
+nnoremap qq ^qqqqq
 
 "Easier way to clone a paragraph (I think of it as get lines)
 noremap gl yap<S-}>p
