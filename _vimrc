@@ -33,6 +33,10 @@ set hlsearch
 set ignorecase "use case insensitive searching
 set smartcase  "^ unless a capital letter is used
 
+"Split options
+set splitright
+set splitbelow
+
 "Disable backups for every file
 set nobackup
 set nowritebackup
@@ -53,6 +57,7 @@ set matchpairs=(:),{:},[:],<:>
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
+
 "Remember more commands and searches
 set history=100 
 
@@ -206,6 +211,9 @@ let g:ctrlp_use_caching = 0
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
+
+"The default command for the quick-run plugin is too long
+cabbrev qr QuickRun
 
 "This default diff function comes with the windows version of vim
 set diffexpr=MyDiff()
