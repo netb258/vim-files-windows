@@ -100,8 +100,9 @@ function ToggleLang()
   endif
 endfunction
 
-"Simple mapping to call the function
-nnoremap <Leader>l :call ToggleLang()<cr>
+"Simple mappings to call the function
+nnoremap <c-l> :call ToggleLang()<cr>
+inoremap <c-l> <c-o>:call ToggleLang()<cr>
 
 "Disable default easy-motion mappings
 let g:EasyMotion_do_mapping = 0
