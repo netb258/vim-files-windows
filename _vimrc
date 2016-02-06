@@ -180,6 +180,10 @@ nnoremap <silent> vi% %:call feedkeys("vi" . matchstr(getline('.'), '\%' . col('
 "Mapping for 'visual select around pair'
 nnoremap va% %v%
 
+"Convenient mappings for VimShell
+noremap <silent> <leader>e :VimShellSendString<cr>
+noremap <silent> <leader>E :%VimShellSendString<cr>
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Include some small ruby utils I wrote
@@ -216,8 +220,11 @@ let g:ctrlp_use_caching = 0
 command! TREE NERDTreeToggle
 cabbrev tree TREE
 
-"The default command for the quick-run plugin is too long
+"Some abbreviations for long commands
 cabbrev qr QuickRun
+cabbrev shell VimShell
+cabbrev ishell VimShellInteractive --split='split \| resize 15'
+cabbrev sclose VimShellClose
 
 "This default diff function comes with the windows version of vim
 set diffexpr=MyDiff()
