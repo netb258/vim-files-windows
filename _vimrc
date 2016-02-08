@@ -41,9 +41,6 @@ set splitbelow
 set nobackup
 set nowritebackup
 
-"I want pwd to be the same as the file I'm editing
-set autochdir
-
 "Enable the backspace key in insert mode
 set backspace=2
 
