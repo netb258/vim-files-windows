@@ -81,7 +81,7 @@ set statusline+=\ %c\    "current column
 let mapleader="\<space>"
 
 "Map control-v to paste from clipboard
-noremap <c-v> "+P
+noremap <c-v> "+gp
 inoremap <c-v> <c-r>+
 cnoremap <c-v> <c-r>+
 
