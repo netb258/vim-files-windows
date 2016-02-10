@@ -51,6 +51,9 @@ set re=1 "I've had performance issues with the newer engine (especially on Ruby 
 "I want to be able to jump between these
 set matchpairs=(:),{:},[:],<:>
 
+"I want smart matching
+runtime macros/matchit.vim
+
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
@@ -161,21 +164,11 @@ nnoremap qq qqqqq
 "Easier way to clone a paragraph (I think of it as get lines)
 noremap gl yap<S-}>p
 
-"Mapping for 'change inside pair'
-"This line: matchstr(getline('.'), '\%' . col('.') . 'c.'), gets the char under the cursor
-nnoremap <silent> ci% %:call feedkeys("ci" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
-"Mapping for 'change around pair'
-nnoremap <silent> ca% %:call feedkeys("ca" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
-
-"Mapping for 'delete inside pair'
-nnoremap <silent> di% %:call feedkeys("di" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
-"Mapping for 'delete around pair'
-nnoremap <silent> da% %:call feedkeys("da" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
-
-"Mapping for 'visual select inside pair'
-nnoremap <silent> vi% %:call feedkeys("vi" . matchstr(getline('.'), '\%' . col('.') . 'c.'))<cr>
-"Mapping for 'visual select around pair'
-nnoremap va% %v%
+"Mappings for 'change inside/around next pair'
+xnoremap i% <esc>%:execute "normal! vi" . getline('.')[col('.')-1]<cr>
+onoremap i% :execute "normal vi%"<cr>
+xnoremap a% <esc>%v%
+onoremap a% :execute "normal va%"<cr>
 
 "Convenient mappings for VimShell
 noremap <silent> <leader>e :VimShellSendString<cr>
@@ -248,3 +241,5 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
+"----------------------------------------------------------------------------------------
