@@ -85,7 +85,7 @@ let mapleader="\<space>"
 
 "Map control-v to paste from clipboard
 noremap <c-v> "+gp
-inoremap <c-v> <c-r>+
+inoremap <c-v> <c-o>"+gP
 cnoremap <c-v> <c-r>+
 
 "Map control-c to yank to the clipboard
