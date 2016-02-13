@@ -138,7 +138,7 @@ noremap / /\V
 noremap ? ?\V
 
 "I mainly use the star for searching, so I don't want the added jump
-nnoremap * :keepjumps normal! mi*`i<cr>
+nnoremap * :keepjumps normal! *N<cr>
 
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
