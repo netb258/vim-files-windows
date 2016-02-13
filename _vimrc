@@ -23,6 +23,9 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+"Stop automatic comment insertion
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 "Encoding settings
 set encoding=utf-8     "Sets the encoding for VIM's buffers and registers
 set fileencoding=utf-8 "Sets the encoding for the actual file being edited
@@ -83,9 +86,11 @@ set statusline+=\ %c\    "current column
 "My Leader is space
 let mapleader="\<space>"
 
-"Map control-v to paste from clipboard
-noremap <c-v> "+gp
-inoremap <c-v> <c-o>"+gP
+"Map control-v to paste from clipboard (normal mode pastes with indent, insert doesn't)
+"The normal mode version is used for pasting multiple lines
+"The insert mode version is used for pasting at some random point in a line
+noremap <c-v> "+pv`]='>
+inoremap <c-v> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
 cnoremap <c-v> <c-r>+
 
 "Map control-c to yank to the clipboard
