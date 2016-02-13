@@ -88,8 +88,8 @@ let mapleader="\<space>"
 "Map control-v to paste from clipboard (normal mode pastes with indent, insert doesn't)
 "The normal mode version is used for pasting multiple lines
 "The insert mode version is used for pasting at some random point in a line
-noremap <c-v> "+pv`]='>
-inoremap <c-v> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
+noremap <c-v> "+pv`]=`>
+inoremap <c-v> <c-r><c-p>+
 cnoremap <c-v> <c-r>+
 
 "Map control-c to yank to the clipboard
@@ -138,7 +138,7 @@ noremap / /\V
 noremap ? ?\V
 
 "I mainly use the star for searching, so I don't want the added jump
-nnoremap * :keepjumps normal! *N<cr>
+nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<cr>
 
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
