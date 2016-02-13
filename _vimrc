@@ -60,7 +60,6 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
-
 "Remember more commands and searches
 set history=100 
 
@@ -137,6 +136,9 @@ map <Leader>n <Plug>(easymotion-bd-n)
 "If I want to togge this I can simply press backspace and type small v
 noremap / /\V
 noremap ? ?\V
+
+"I mainly use the star for searching, so I don't want the added jump
+nnoremap * :keepjumps normal! mi*`i<cr>
 
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
@@ -246,5 +248,3 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
-"----------------------------------------------------------------------------------------
