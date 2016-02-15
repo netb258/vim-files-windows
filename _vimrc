@@ -60,6 +60,7 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
+
 "Remember more commands and searches
 set history=100 
 
@@ -134,15 +135,17 @@ map <Leader>n <Plug>(easymotion-bd-n)
 
 "Change VIM's default regexp scheme, now all characters are literals in searches
 "If I want to togge this I can simply press backspace and type small v
-noremap / /\V
-noremap ? ?\V
+noremap / :set cursorline<cr>/\V
+noremap ? :set cursorline<cr>?\V
 
 "I mainly use the star for searching, so I don't want the added jump
 nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<cr>
 
 "I want the current search highlight to be cleared when I hit escape
-nnoremap <silent> <esc> :noh<cr><esc>
-inoremap <silent> <esc> <esc>:noh<cr>
+nnoremap <silent> <esc> :set nocursorline<cr>:noh<cr><esc>
+inoremap <silent> <esc> <esc>:set nocursorline<cr>:noh<cr>
+cnoremap <silent> <esc> <c-c>:set nocursorline<cr>:noh<cr>
+cnoremap <silent> <cr> <cr>:set nocursorline<cr>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
