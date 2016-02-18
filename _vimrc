@@ -145,7 +145,9 @@ nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<c
 nnoremap <silent> <esc> :set nocursorline<cr>:noh<cr><esc>
 inoremap <silent> <esc> <esc>:set nocursorline<cr>:noh<cr>
 cnoremap <silent> <esc> <c-c>:set nocursorline<cr>:noh<cr>
-cnoremap <silent> <cr> <cr>:set nocursorline<cr>
+
+"Make hitting enter in the command line clear the cursorline (<c-]> respects cabbrev)
+cnoremap <silent> <cr> <c-]><nl><esc>:set nocursorline<nl>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
@@ -171,8 +173,11 @@ vnoremap <silent> <bs> :norm ^@q<cr>
 "Make the q register start out empty
 nnoremap qq qqqqq
 
-"Easier way to clone a paragraph (I think of it as get lines)
-noremap gl yap<S-}>p
+"Bring the current line down
+nnoremap gl yy<c-o>p
+
+"Bring the current paragraph down
+nnoremap gL y}<c-o><c-o>p
 
 "Mappings for 'change inside/around next pair'
 xnoremap i% <esc>%:execute "normal! vi" . getline('.')[col('.')-1]<cr>
@@ -251,3 +256,5 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
+"----------------------------------------------------------------------------------------
