@@ -60,7 +60,6 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
-
 "Remember more commands and searches
 set history=100 
 
@@ -220,6 +219,9 @@ let g:SimpleJsIndenter_BriefMode = 1
 "Control p settings
 let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
 let g:ctrlp_use_caching = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_lazy_update = 350
+let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
@@ -256,5 +258,3 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
-"----------------------------------------------------------------------------------------
