@@ -91,6 +91,8 @@ let mapleader="\<space>"
 noremap <c-v> "+pv`]=`>
 inoremap <c-v> <c-r><c-p>+
 cnoremap <c-v> <c-r>+
+"Well I'm using <c-v> for pasting, so cv can take it's place for visual block mode
+nnoremap cv <c-q>
 
 "Map control-c to yank to the clipboard
 noremap <c-c> "+y
