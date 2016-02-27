@@ -136,19 +136,14 @@ map <Leader>n <Plug>(easymotion-bd-n)
 
 "Change VIM's default regexp scheme, now all characters are literals in searches
 "If I want to togge this I can simply press backspace and type small v
-noremap / :set cursorline<cr>/\V
-noremap ? :set cursorline<cr>?\V
+noremap / /\V
+noremap ? ?\V
 
 "I mainly use the star for searching, so I don't want the added jump
 nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<cr>
 
 "I want the current search highlight to be cleared when I hit escape
-nnoremap <silent> <esc> :set nocursorline<cr>:noh<cr><esc>
-inoremap <silent> <esc> <esc>:set nocursorline<cr>:noh<cr>
-cnoremap <silent> <esc> <c-c>:set nocursorline<cr>:noh<cr>
-
-"Make hitting enter in the command line clear the cursorline (<c-]> respects cabbrev)
-cnoremap <silent> <cr> <c-]><nl><esc>:set nocursorline<nl>
+nnoremap <silent> <esc> :noh<cr><esc>
 
 "Mapping to show the undo tree
 nnoremap <Leader>u :GundoToggle<CR>
