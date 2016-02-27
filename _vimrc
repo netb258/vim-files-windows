@@ -197,6 +197,7 @@ autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.
 
 "Gvim options
 set guioptions-=T "I don't want the gui tool bar
+set guioptions-=m "I don't want the gui menu bar
 set guitablabel=%N:%M%t " Show tab numbers
 set guifont=Courier_New:h11:cDEFAULT "Font for gvim
 
@@ -255,3 +256,5 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
+"----------------------------------------------------------------------------------------
