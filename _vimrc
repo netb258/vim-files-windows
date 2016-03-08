@@ -60,6 +60,7 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
+
 "Remember more commands and searches
 set history=100 
 
@@ -167,7 +168,10 @@ nnoremap <bs> @q
 vnoremap <silent> <bs> :norm ^@q<cr>
 
 "Make the q register start out empty
-nnoremap qq qqqqq
+nnoremap Q qqqqq
+
+"Make dot available in visual mode
+vnoremap <silent> . :norm .<cr>
 
 "Bring the current line down
 nnoremap gl yy<c-o>p
@@ -184,6 +188,14 @@ onoremap a% :execute "normal va%"<cr>
 "Convenient mappings for VimShell
 noremap <silent> <leader>e :VimShellSendString<cr>
 noremap <silent> <leader>E :%VimShellSendString<cr>
+
+"Clear search highlight when saving a file
+nnoremap <silent> <plug>(nohlsearch) :<c-u>nohlsearch<cr>
+
+augroup nohlsearch_on_bufwritepost
+    autocmd!
+    autocmd BufWritePost * call feedkeys("\<plug>(nohlsearch)")
+augroup END
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
@@ -256,5 +268,3 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
-"----------------------------------------------------------------------------------------
