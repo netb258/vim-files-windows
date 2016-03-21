@@ -135,6 +135,10 @@ nmap dk d<Plug>(easymotion-k)
 "Search mappings
 map <Leader>n <Plug>(easymotion-bd-n)
 
+"Make n/N consistent
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
+
 "Change VIM's default regexp scheme, now all characters are literals in searches
 "If I want to togge this I can simply press backspace and type small v
 noremap / /\V
@@ -198,9 +202,6 @@ augroup nohlsearch_on_bufwritepost
 augroup END
 
 "----------------------------------- Plugins and GUI ------------------------------------
-
-"Include some small ruby utils I wrote
-ruby require 'RUBY_UTILS'
 
 "Disable the matchparens plugin by default
 let loaded_matchparen = 1
