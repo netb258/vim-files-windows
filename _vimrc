@@ -196,6 +196,7 @@ noremap <silent> <leader>E :%VimShellSendString<cr>
 "Clear search highlight when saving a file
 nnoremap <silent> <plug>(nohlsearch) :<c-u>nohlsearch<cr>
 
+"The above mapping is triggered by an autocommand (not a key press)
 augroup nohlsearch_on_bufwritepost
     autocmd!
     autocmd BufWritePost * call feedkeys("\<plug>(nohlsearch)")
