@@ -252,9 +252,3 @@ let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
-
-"Quickly open some useful files
-command! TASKS e D:\vim\notes\tasks.md
-cabbrev tasks TASKS
-command! VIMRC e D:\vim\vim73\_vimrc
-cabbrev vimrc VIMRC
