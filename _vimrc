@@ -10,7 +10,7 @@ filetype plugin on
 filetype indent on
 
 "Plugins directory
-call pathogen#infect('PLUGINS_DIR')
+call pathogen#infect('PLUGINS DIR')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
@@ -54,7 +54,7 @@ set re=1 "I've had performance issues with the newer engine (especially on Ruby 
 "I want to be able to jump between these
 set matchpairs=(:),{:},[:],<:>
 
-"I want smart matching
+"I'm loading matchit here, because loading it later fucks with the mappings on line 175
 runtime macros/matchit.vim
 
 "Enable command and file-name completion with <tab>
@@ -64,22 +64,11 @@ set wildmode=list:longest,full
 "Remember more commands and searches
 set history=100 
 
-"Always show status line
-set laststatus=2
+"Shows what column I'm on
+set ruler
 
-"Status line settings
-set statusline=\ %t      "show filename
-set statusline+=\ »\     "small visual separator left
-set statusline+=%m       "modified flag
-set statusline+=%r       "read only flag
-set statusline+=%y       "filetype
-set statusline+=%=       "left/right separator
-set statusline+=%{strlen(&fenc)?&fenc:'none'}[ "file encoding
-set statusline+=%{&ff}]  "file format
-set statusline+=\ «      "small visual separator right
-set statusline+=\ %P\ \| "percent through file
-set statusline+=\ %l\ :  "current line
-set statusline+=\ %c\    "current column
+"Highlight the current line
+set cursorline
 
 "----------------------------------- Custom Mappings ------------------------------------
 
@@ -92,6 +81,7 @@ let mapleader="\<space>"
 noremap <c-v> "+pv`]=`>
 inoremap <c-v> <c-r><c-p>+
 cnoremap <c-v> <c-r>+
+
 "Well I'm using <c-v> for pasting, so cv can take it's place for visual block mode
 nnoremap cv <c-q>
 
@@ -134,7 +124,6 @@ nmap dk d<Plug>(easymotion-k)
 
 "Search mappings
 map <Leader>n <Plug>(easymotion-bd-n)
-
 "Make n/N consistent
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
@@ -202,12 +191,37 @@ augroup nohlsearch_on_bufwritepost
     autocmd BufWritePost * call feedkeys("\<plug>(nohlsearch)")
 augroup END
 
+"I search for something with / and instantly replace it with <leader>s
+nnoremap <leader>s :%s///g<left><left>
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Disable the matchparens plugin by default
 let loaded_matchparen = 1
 "It will be enabled only for lisp files
 autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
+
+"Disable fireplace.vim and classpath.vim by default.
+let g:loaded_classpath = 1
+let g:loaded_fireplace = 1
+
+"They will be loaded with commands
+command! LEIN call LoadFireplace() 
+cabbrev lein LEIN
+command! NREPL call ConnectToRepl() 
+cabbrev nrepl NREPL
+
+function LoadFireplace()
+  unlet! g:loaded_classpath | unlet! g:loaded_fireplace
+  runtime plugin/classpath.vim
+  runtime plugin/fireplace.vim
+  e "Reload the file to fire all autocommands.
+endfunction
+
+function ConnectToRepl()
+  call LoadFireplace()
+  Connect nrepl://localhost:1234
+endfunction
 
 "Gvim options
 set guioptions-=T "I don't want the gui tool bar
@@ -239,8 +253,8 @@ let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 command! TREE NERDTreeToggle
 cabbrev tree TREE
 
-"Some abbreviations for long commands
-cabbrev qr QuickRun
-cabbrev shell VimShell
-cabbrev ishell VimShellInteractive --split='split \| resize 15'
-cabbrev sclose VimShellClose
+"Quickly open some useful files
+command! TASKS e D:\vim\notes\tasks.md
+cabbrev tasks TASKS
+command! VIMRC e D:\vim\vim73\_vimrc
+cabbrev vimrc VIMRC
