@@ -27,18 +27,19 @@ function! s:sexp_mappings() abort
 
   nmap <buffer> dsf <Plug>(sexp_splice_list)
 
-  nmap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
-  nmap <buffer> W   <Plug>(sexp_move_to_next_element_head)
-  nmap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
-  nmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
-  xmap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
-  xmap <buffer> W   <Plug>(sexp_move_to_next_element_head)
-  xmap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
-  xmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
-  omap <buffer> B   <Plug>(sexp_move_to_prev_element_head)
-  omap <buffer> W   <Plug>(sexp_move_to_next_element_head)
-  omap <buffer> gE  <Plug>(sexp_move_to_prev_element_tail)
-  omap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+  "I'm not sure about these mapping, but I'll leave them in for now
+  nmap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
+  nmap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  "nmap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
+  "nmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+  xmap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
+  xmap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  "xmap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
+  "xmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
+  omap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
+  omap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  "omap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
+  "omap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
 
   nmap <buffer> <I  <Plug>(sexp_insert_at_list_head)
   nmap <buffer> >I  <Plug>(sexp_insert_at_list_tail)
@@ -50,6 +51,9 @@ function! s:sexp_mappings() abort
   nmap <buffer> <)  <Plug>(sexp_emit_tail_element)
   nmap <buffer> <(  <Plug>(sexp_capture_prev_element)
   nmap <buffer> >)  <Plug>(sexp_capture_next_element)
+
+  "Added a delete whole form:
+  nmap <buffer> dsf ds)dW
 endfunction
 
 function! s:setup() abort
