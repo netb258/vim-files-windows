@@ -108,7 +108,7 @@ inoremap <c-l> <c-o>:call ToggleLang()<cr>
 let g:EasyMotion_do_mapping = 0
 
 "Bi-directional find motion
-map <c-n> <Plug>(easymotion-s)
+map , <Plug>(easymotion-s)
 
 "JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
@@ -128,10 +128,6 @@ map <Leader>n <Plug>(easymotion-bd-n)
 "Make n/N consistent
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
-
-"Make ,/; consistent
-nnoremap <expr> ; getcharsearch().forward ? ';' : ',' 
-nnoremap <expr> , getcharsearch().forward ? ',' : ';'
 
 "Change VIM's default regexp scheme, now all characters are literals in searches
 "If I want to togge this I can simply press backspace and type small v
