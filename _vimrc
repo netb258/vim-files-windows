@@ -108,7 +108,7 @@ inoremap <c-l> <c-o>:call ToggleLang()<cr>
 let g:EasyMotion_do_mapping = 0
 
 "Bi-directional find motion
-map , <Plug>(easymotion-s)
+map [ <Plug>(easymotion-s)
 
 "JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
