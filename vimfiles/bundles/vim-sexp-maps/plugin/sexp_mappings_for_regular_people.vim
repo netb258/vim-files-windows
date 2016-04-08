@@ -25,19 +25,17 @@ function! s:sexp_mappings() abort
   call s:map_sexp_wrap('e', 'cse{', '{', '}', 0)
   call s:map_sexp_wrap('e', 'cse}', '{', '}', 1)
 
-  nmap <buffer> dsf <Plug>(sexp_splice_list)
-
   "I'm not sure about these mapping, but I'll leave them in for now
-  nmap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
-  nmap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  nmap <buffer> <c-h>   <Plug>(sexp_move_to_prev_element_head)
+  nmap <buffer> <c-l>   <Plug>(sexp_move_to_next_element_head)
   "nmap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
   "nmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
-  xmap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
-  xmap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  xmap <buffer> <c-h>   <Plug>(sexp_move_to_prev_element_head)
+  xmap <buffer> <c-l>   <Plug>(sexp_move_to_next_element_head)
   "xmap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
   "xmap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
-  omap <buffer> <localleader>b   <Plug>(sexp_move_to_prev_element_head)
-  omap <buffer> <localleader>w   <Plug>(sexp_move_to_next_element_head)
+  omap <buffer> <c-h>   <Plug>(sexp_move_to_prev_element_head)
+  omap <buffer> <c-l>   <Plug>(sexp_move_to_next_element_head)
   "omap <buffer> Ge  <Plug>(sexp_move_to_prev_element_tail)
   "omap <buffer> E   <Plug>(sexp_move_to_next_element_tail)
 
@@ -54,6 +52,14 @@ function! s:sexp_mappings() abort
 
   "Added a delete whole form:
   nmap <buffer> dsf ds)dW
+  "More convenient form adding:
+  nmap <leader>f <localleader>f
+  "Add form in visual mode:
+  vmap <buffer> <leader>f <esc>`>a)<esc>`<i(<del>
+  "Wrap element in form:
+  nmap <buffer> <c-f> vie\f
+  "My doc lookup:
+  nmap <buffer> K "zyie:Eval (doc <c-r>z)<cr>
 endfunction
 
 function! s:setup() abort
