@@ -137,6 +137,9 @@ noremap ? ?\V
 "I mainly use the star for searching, so I don't want the added jump
 nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<cr>
 
+"Make * available in visual mode
+vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>
+
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
 
@@ -253,3 +256,5 @@ let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
+
+"----------------------------------------------------------------------------------------
