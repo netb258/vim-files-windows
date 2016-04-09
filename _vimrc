@@ -70,6 +70,9 @@ set ruler
 "Highlight the current line
 set cursorline
 
+"I don't want the preview-window (when doing code completion)
+set completeopt-=preview
+
 "----------------------------------- Custom Mappings ------------------------------------
 
 "My Leader is space
