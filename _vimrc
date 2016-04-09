@@ -60,7 +60,6 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
-
 "Remember more commands and searches
 set history=100 
 
@@ -259,5 +258,3 @@ let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
-
-"----------------------------------------------------------------------------------------
