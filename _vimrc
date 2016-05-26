@@ -8,15 +8,16 @@ syntax on
 filetype on
 filetype plugin on
 filetype indent on
+set synmaxcol=1000 "Maximum columns to highlight
 
 "Plugins directory
-call pathogen#infect('PLUGINS DIR')
+call pathogen#infect('PATH_TO_PLUGINS')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
 
-"Show line number on the side
-set number
+"Show relative line number on the side
+set relativenumber
 
 "Tabs and spaces
 set tabstop=2
@@ -60,6 +61,7 @@ runtime macros/matchit.vim
 "Enable command and file-name completion with <tab>
 set wildmenu
 set wildmode=list:longest,full
+
 "Remember more commands and searches
 set history=100 
 
@@ -78,8 +80,6 @@ set completeopt-=preview
 let mapleader="\<space>"
 
 "Map control-v to paste from clipboard (normal mode pastes with indent, insert doesn't)
-"The normal mode version is used for pasting multiple lines
-"The insert mode version is used for pasting at some random point in a line
 noremap <c-v> "+pv`]=`>
 inoremap <c-v> <c-r><c-p>+
 cnoremap <c-v> <c-r>+
@@ -109,22 +109,7 @@ inoremap <c-l> <c-o>:call ToggleLang()<cr>
 "Disable default easy-motion mappings
 let g:EasyMotion_do_mapping = 0
 
-"Bi-directional find motion
-map [ <Plug>(easymotion-s)
-
-"JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
-"Make yanking distant lines easier
-nmap yj y<Plug>(easymotion-j)
-nmap yk y<Plug>(easymotion-k)
-
-"Make deleting distant lines easier
-nmap dj d<Plug>(easymotion-j)
-nmap dk d<Plug>(easymotion-k)
-
-"Search mappings
+"Search mappings:
 map <Leader>n <Plug>(easymotion-bd-n)
 
 "Make n/N consistent
@@ -142,6 +127,9 @@ nnoremap <silent> * :let @/="\\<" . expand("<cword>") . "\\>"<cr>:set hlsearch<c
 "Make * available in visual mode
 vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>
 
+"A little shortcur for *cgn
+nnoremap c* *Ncgn
+
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
 
@@ -158,6 +146,12 @@ nnoremap <leader>6 6gt
 nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
+
+"Resize splits easier
+nnoremap + <c-w>>
+nnoremap - <c-w><
+nnoremap _ <c-w>+
+nnoremap <c-_> <c-w>-
 
 "With this: Just record a scratch macro with qq, then play it back with backspace
 nnoremap <bs> @q
@@ -184,10 +178,6 @@ onoremap i% :execute "normal vi%"<cr>
 xnoremap a% <esc>%v%
 onoremap a% :execute "normal va%"<cr>
 
-"Convenient mappings for VimShell
-noremap <silent> <leader>e :VimShellSendString<cr>
-noremap <silent> <leader>E :%VimShellSendString<cr>
-
 "Clear search highlight when saving a file
 nnoremap <silent> <plug>(nohlsearch) :<c-u>nohlsearch<cr>
 
@@ -200,34 +190,26 @@ augroup END
 "I search for something with / and instantly replace it with <leader>s
 nnoremap <leader>s :%s///g<left><left>
 
+"More intuative code completion
+inoremap <c-space> <c-x><c-o>
+
+"Eval the whole buffer (fireplace)
+nnoremap <leader>e :%Eval<cr>
+vnoremap <leader>e :Eval<cr>
+
+"Reload the current namespace (fireplace)
+nnoremap <leader>r :Require!<cr>
+
+"Store relative line number jumps in the jumplist.
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Disable the matchparens plugin by default
 let loaded_matchparen = 1
 "It will be enabled only for lisp files
 autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
-
-"Disable fireplace.vim and classpath.vim by default.
-let g:loaded_classpath = 1
-let g:loaded_fireplace = 1
-
-"They will be loaded with commands
-command! LEIN call LoadFireplace() 
-cabbrev lein LEIN
-command! NREPL call ConnectToRepl() 
-cabbrev nrepl NREPL
-
-function LoadFireplace()
-  unlet! g:loaded_classpath | unlet! g:loaded_fireplace
-  runtime plugin/classpath.vim
-  runtime plugin/fireplace.vim
-  e "Reload the file to fire all autocommands.
-endfunction
-
-function ConnectToRepl()
-  call LoadFireplace()
-  Connect nrepl://localhost:1234
-endfunction
 
 "Gvim options
 set guioptions-=T "I don't want the gui tool bar
@@ -258,3 +240,11 @@ let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
 cabbrev tree TREE
+
+"A quick command to connect to my custom Clojure repl setup
+command! NREPL Connect nrepl://localhost:1234
+cabbrev nrepl NREPL
+
+"Quickly open a command prompt in the currect directory
+command! CMD !start cmd
+cabbrev cmd CMD
