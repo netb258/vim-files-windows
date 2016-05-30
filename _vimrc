@@ -209,7 +209,7 @@ nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 "Disable the matchparens plugin by default
 let loaded_matchparen = 1
 "It will be enabled only for lisp files
-autocmd Filetype clojure unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
+autocmd Filetype clojure,scheme unlet! g:loaded_matchparen | runtime plugin/matchparen.vim
 
 "Gvim options
 set guioptions-=T "I don't want the gui tool bar
