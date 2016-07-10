@@ -20,7 +20,7 @@ let g:sexp_loaded = 1
 """ Global State {{{1
 
 if !exists('g:sexp_filetypes')
-    let g:sexp_filetypes = 'clojure,scheme,lisp,timl,racket'
+    let g:sexp_filetypes = 'clojure,scheme,lisp,timl,racket,hy'
 endif
 
 if !exists('g:sexp_enable_insert_mode_mappings')
@@ -52,12 +52,12 @@ let s:sexp_mappings = {
     \ 'sexp_move_to_next_element_tail': '<M-e>',
     \ 'sexp_move_to_prev_top_element':  '[[',
     \ 'sexp_move_to_next_top_element':  ']]',
-    \ 'sexp_select_prev_element':       '[e',
-    \ 'sexp_select_next_element':       ']e',
+    \ 'sexp_select_prev_element':       '<LocalLeader>[e',
+    \ 'sexp_select_next_element':       '<LocalLeader>]e',
     \ 'sexp_indent':                    '==',
     \ 'sexp_indent_top':                '=-',
-    \ 'sexp_round_head_wrap_list':      '<LocalLeader>i',
-    \ 'sexp_round_tail_wrap_list':      '<LocalLeader>I',
+    \ 'sexp_round_head_wrap_list':      '<LocalLeader>f',
+    \ 'sexp_round_tail_wrap_list':      '<LocalLeader>F',
     \ 'sexp_square_head_wrap_list':     '<LocalLeader>[',
     \ 'sexp_square_tail_wrap_list':     '<LocalLeader>]',
     \ 'sexp_curly_head_wrap_list':      '<LocalLeader>{',
@@ -224,7 +224,7 @@ function! s:sexp_create_mappings()
         imap <silent><buffer> (    <Plug>(sexp_insert_opening_round)
         imap <silent><buffer> [    <Plug>(sexp_insert_opening_square)
         imap <silent><buffer> {    <Plug>(sexp_insert_opening_curly)
-        imap <silent><buffer> )    <Plug>(sexp_insert_closing_round)
+        "imap <silent><buffer> )    <Plug>(sexp_insert_closing_round)
         imap <silent><buffer> ]    <Plug>(sexp_insert_closing_square)
         imap <silent><buffer> }    <Plug>(sexp_insert_closing_curly)
         imap <silent><buffer> "    <Plug>(sexp_insert_double_quote)

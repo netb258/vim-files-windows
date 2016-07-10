@@ -52,14 +52,22 @@ function! s:sexp_mappings() abort
 
   "Added a delete whole form:
   nmap <buffer> dsf ds)dW
-  "More convenient form adding:
-  nmap <leader>f <localleader>f
+  "Wrap form inside a form:
+  nmap <leader>f ysaf<c-f>
   "Add form in visual mode:
-  vmap <buffer> <leader>f <esc>`>a)<esc>`<i(<del>
+  vmap <buffer> <leader>f S<c-f>
+  vmap <buffer> <c-f> S<c-f>
   "Wrap element in form:
-  nmap <buffer> <c-f> vie\f
+  nmap <buffer> <c-f> ysie<c-f>
   "My doc lookup:
-  nmap <buffer> K "zyie:Eval (doc <c-r>z)<cr>
+  nmap <buffer> K "zyie:Eval (clojure.repl/doc <c-r>z)<cr>
+
+  "Get clone:
+  nmap <leader>c yiePa <esc><right>
+
+  "A more convenient command for clojurescript integration
+  command! Wiggie :Piggieback (weasel.repl.websocket/repl-env :ip "0.0.0.0" :port 9001)
+  cabbrev wiggie Wiggie
 endfunction
 
 function! s:setup() abort
