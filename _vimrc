@@ -130,6 +130,9 @@ vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>
 "A little shortcur for *cgn
 nnoremap c* *Ncgn
 
+"Global search across all files in all subdirectories (might want to do :lw and :bp)
+nnoremap <leader>/ :lvim  **/*<left><left><left><left><left>
+
 "I want the current search highlight to be cleared when I hit escape
 nnoremap <silent> <esc> :noh<cr><esc>
 
@@ -203,6 +206,10 @@ nnoremap <leader>r :Require!<cr>
 "Store relative line number jumps in the jumplist.
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+"The \ key is inconsistent between keyboards, so I'm remapping it to something easy.
+inoremap <c-c> \
+cnoremap <c-c> \
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
