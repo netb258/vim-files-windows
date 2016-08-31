@@ -175,6 +175,12 @@ nnoremap gl yy<c-o>p
 "Bring the current paragraph down
 nnoremap gL y}<c-o><c-o>p
 
+"Clone paragraph
+nnoremap cp y}}p
+
+"Clone visual selection
+vnoremap cp y`>p
+
 "Mappings for 'change inside/around next pair'
 xnoremap i% <esc>%:execute "normal! vi" . getline('.')[col('.')-1]<cr>
 onoremap i% :execute "normal vi%"<cr>
