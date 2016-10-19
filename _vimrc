@@ -112,6 +112,9 @@ let g:EasyMotion_do_mapping = 0
 "Search mappings:
 map <Leader>n <Plug>(easymotion-bd-n)
 
+"When there are too many hits, while searching, I can just press <c-n> and pick the right one
+cmap <c-n> <cr><leader>n
+
 "Make n/N consistent
 noremap <expr> n 'Nn'[v:searchforward]
 noremap <expr> N 'nN'[v:searchforward]
