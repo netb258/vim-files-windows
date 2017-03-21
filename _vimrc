@@ -11,14 +11,14 @@ filetype indent on
 set synmaxcol=1000 "Maximum columns to highlight
 
 "Plugins directory
-call pathogen#infect('PATH_TO_PLUGINS')
+call pathogen#infect('D:\vim\vim73\bundles')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
 
 "Show relative line number on the side
 set number
-set relativenumber
+"set relativenumber
 
 "Tabs and spaces
 set tabstop=2
@@ -112,6 +112,10 @@ inoremap <c-l> <c-o>:call ToggleLang()<cr>
 
 "Disable default easy-motion mappings
 let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+
+"Quick find motion:
+map <leader>f <Plug>(easymotion-bd-f)
 
 "Quickly move between lines:
 map <leader>j <Plug>(easymotion-j)
@@ -191,6 +195,9 @@ nnoremap gl yy<c-o>p
 "Bring the current paragraph down
 nnoremap gL y}<c-o><c-o>p
 
+"Bring visual selection down
+vnoremap gl y'><c-o><c-o>p
+
 "Clone paragraph
 nnoremap cp y}}p
 
@@ -252,6 +259,13 @@ function s:RepeatXorNot()
     return '\x'
   endif
 endfunction
+
+"With this I get relative numbers when I need them.
+nnoremap <silent> <leader>l :<c-u>set relativenumber!<cr>
+vnoremap <silent> <leader>l :<c-u>set relativenumber!<cr>gv
+
+"Get the number of hits for the current search.
+nnoremap <leader>n :%s///gn<cr>
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
@@ -331,9 +345,6 @@ let g:airline#extensions#tabline#tab_min_count = 2
 "Just show the filename (no path) in the tab
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-"A shorthand for calling VimShell.
-cabbrev shell VimShell
-
 "Resize the GUI window to align with ConEmu
 function Stay()
   set lines=37
@@ -351,10 +362,3 @@ cabbrev tree TREE
 "Quickly open a command prompt in the currect directory
 command! CMD let d=expand("%:p:h") | execute '!start cmd /k cd "' . d . '"'
 cabbrev cmd CMD
-
-"Shortcuts for starting clojure programs from VIM:
-command! CLOJURE let f=expand("%") | let d=expand("%:p:h") | execute '!start cmd /k cd "' . d . '" & clojure "' . f . '"'
-cabbrev clojure CLOJURE
-
-command! CLOJUREC let f=expand("%") | let d=expand("%:p:h") | execute '!start cmd /k cd "' . d . '" & clojurec "' . f . '"'
-cabbrev clojurec CLOJUREC
