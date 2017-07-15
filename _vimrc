@@ -83,8 +83,8 @@ set completeopt-=preview
 "My Leader is space
 let mapleader="\<space>"
 
-"Map control-v to paste from clipboard (normal mode pastes with indent, insert doesn't)
-noremap <c-v> "+pv`]=`>
+"My preferred copy-paste scheme:
+noremap <c-v> "+p
 inoremap <c-v> <c-r><c-p>+
 cnoremap <c-v> <c-r>+
 
@@ -173,8 +173,9 @@ nnoremap <leader>9 9gt
 "Resize splits easier
 nnoremap + <c-w>>
 nnoremap - <c-w><
-nnoremap _ <c-w>+
-nnoremap <c-_> <c-w>-
+nnoremap <leader>+ <c-w>+
+nnoremap <leader>- <c-w>-
+nnoremap <leader>= <c-w>=
 
 "With this: Just record a scratch macro with qq, then play it back with backspace
 nnoremap <bs> @q
@@ -230,10 +231,14 @@ nnoremap <leader>e :%Eval<cr>
 vnoremap <leader>e :Eval<cr>
 
 "Reload the current namespace (fireplace)
-nnoremap <leader>r :Require!<cr>
+autocmd Filetype clojure nnoremap <leader>r :Require!<cr>
 
-"Adds a convenient debugging macro for Clojure:
-inoremap <c-d> (defmacro dbg[x] `(let [x# ~x] (println "dbg:" '~x "=" x#) x#))
+"Quick run script (ruby)
+autocmd Filetype ruby nnoremap <leader>r :QuickRun<cr>
+
+"Adds convenient debugging macros for Clojure:
+inoremap <c-d> ;; Use (break 0) where you need a breakpoint AND run the program through a REPL, like this: clojurec> (load-file "main.clj")
+(use 'debugger.core) ;; NOTE: this includes the dbg macro.
 
 "Store relative line number jumps in the jumplist.
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
@@ -242,23 +247,8 @@ nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 "Show a list of my most used files and directories.
 nnoremap <leader>p :<c-u>CtrlPLauncher<cr>
 
-"Makes a single 'x' not repeatable and not saved in the default register. 
-nmap <silent> \x :<c-u>call NoPasteNoDotX()<CR>
-nmap <expr> x <SID>RepeatXorNot()
-
-"If the command comes from an 'execute' inside a function, it won't be repeated.
-function NoPasteNoDotX()
-  silent execute ':normal! "_x'
-endfunction
-
-"If a count has been supplied, throw a normal 'x', otherwise we use 'NoPasteNoDotX'.
-function s:RepeatXorNot()
-  if v:count1 > 1
-    return 'x'
-  else
-    return '\x'
-  endif
-endfunction
+"Easier access to the null register.
+nnoremap g_ "_
 
 "With this I get relative numbers when I need them.
 nnoremap <silent> <leader>l :<c-u>set relativenumber!<cr>
@@ -266,6 +256,15 @@ vnoremap <silent> <leader>l :<c-u>set relativenumber!<cr>gv
 
 "Get the number of hits for the current search.
 nnoremap <leader>n :%s///gn<cr>
+
+"Visually select the last changed text.
+nnoremap gp `[v`]
+
+"Easier vim surround (note that ys still works).
+nmap S <Plug>Ysurround
+
+"Quickly switch buffers.
+nmap <leader>b :CtrlPBuffer<cr>
 
 "----------------------------------- Plugins and GUI ------------------------------------
 
@@ -278,12 +277,13 @@ autocmd Filetype clojure,scheme,hy,lisp unlet! g:loaded_matchparen | runtime plu
 set guioptions-=T "I don't want the gui tool bar
 set guioptions-=m "I don't want the gui menu bar
 set guitablabel=%N:%M%t " Show tab numbers
-set guifont=Courier_New:h11:cDEFAULT "Font for gvim
+set guifont=Consolas:h11:cDEFAULT "Font for gvim
+"set guifont=Courier_New:h11:cDEFAULT "Font for gvim
 
 "Window size for gvim
 if has("gui_running")
-  set lines=45
-  set columns=110
+  set lines=40
+  set columns=115
   winpos 125 60
 endif
 
@@ -337,13 +337,17 @@ let g:airline_symbols = {}
 let g:airline_symbols.linenr = '|'
 
 "Tabline settings:
-let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
-let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
+"let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
+"let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
 "Don't show buffers/tabs if opened only one file is opened.
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#tab_min_count = 2
+"let g:airline#extensions#tabline#buffer_min_count = 2
+"let g:airline#extensions#tabline#tab_min_count = 2
 "Just show the filename (no path) in the tab
-let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#fnamemod = ':t'
+
+"VIM-GO settings:
+let g:go_fmt_autosave = 0
+au FileType go nmap <leader>i <Plug>(go-info)
 
 "Resize the GUI window to align with ConEmu
 function Stay()
@@ -352,8 +356,9 @@ function Stay()
   winpos 0 -5
 endfunction
 
-"Canvenient mapping that calls the above function
-nnoremap <leader>s :call Stay()<cr>
+"Canvenient command that calls the above function
+command! STAY call Stay()
+cabbrev stay STAY
 
 "Simple command to bring up nerd tree
 command! TREE NERDTreeToggle
@@ -362,3 +367,7 @@ cabbrev tree TREE
 "Quickly open a command prompt in the currect directory
 command! CMD let d=expand("%:p:h") | execute '!start cmd /k cd "' . d . '"'
 cabbrev cmd CMD
+
+"Quickly cd to the currect directory
+command! CDD let d=expand("%:p:h") | execute 'cd ' . d
+cabbrev cdd CDD
