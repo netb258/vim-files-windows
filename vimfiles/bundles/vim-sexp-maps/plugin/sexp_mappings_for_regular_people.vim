@@ -50,15 +50,23 @@ function! s:sexp_mappings() abort
   nmap <buffer> <(  <Plug>(sexp_capture_prev_element)
   nmap <buffer> >)  <Plug>(sexp_capture_next_element)
 
-  "Added a delete whole form:
-  nmap <buffer> dsf ds)dW
+  nmap <buffer> <c-k>  <Plug>(sexp_raise_list)
+
+  "Added a delete whole form (AND it's repeatable thanks to repeat.vim):
+  nmap <silent> <Plug>DeleteSurroundingForm ds)dW
+  \:call repeat#set("\<Plug>DeleteSurroundingForm")<CR>
+  nmap dsf <Plug>DeleteSurroundingForm
   "Wrap form inside a form:
-  nmap <leader>f ysaf<c-f>
+  "nmap <leader>f ysaf<c-f>
   "Add form in visual mode:
-  vmap <buffer> <leader>f S<c-f>
+  "vmap <buffer> <leader>f S<c-f>
   vmap <buffer> <c-f> S<c-f>
   "Wrap element in form:
   nmap <buffer> <c-f> ysie<c-f>
+  "Easier wrap form in parens:
+  nmap <buffer> <leader>) ysie)
+  nmap <buffer> <leader>[ ysie]
+  nmap <buffer> <leader>{ ysie}
   "My doc lookup:
   nmap <buffer> K "zyie:Eval (clojure.repl/doc <c-r>z)<cr>
 
