@@ -11,7 +11,7 @@ filetype indent on
 set synmaxcol=1000 "Maximum columns to highlight
 
 "Plugins directory
-call pathogen#infect('D:\vim\vim73\bundles')
+call pathogen#infect('D:\vim\bundles/{}')
 
 "My preferred colors (solarized or xoria256)
 colorscheme solarized
@@ -69,6 +69,21 @@ set history=100
 "Always show status line
 set laststatus=2
 
+"Status line settings
+set statusline=\ %t      "show filename
+set statusline+=\ »\     "small visual separator left
+set statusline+=%m       "modified flag
+set statusline+=%r       "read only flag
+set statusline+=%y       "filetype
+set statusline+=%=       "left/right separator
+set statusline+=%{&keymap=='bulgarian-phonetic'?'<BG>':'<ENG>'} "language
+set statusline+=%{strlen(&fenc)?&fenc:'none'}[ "file encoding
+set statusline+=%{&ff}]  "file format
+set statusline+=\ «      "small visual separator right
+set statusline+=\ %P\ \| "percent through file
+set statusline+=\ %l\ :  "current line
+set statusline+=\ %c\    "current column
+
 "Shows what column I'm on
 set ruler
 
@@ -85,7 +100,7 @@ let mapleader="\<space>"
 
 "My preferred copy-paste scheme:
 noremap <c-v> "+p
-inoremap <c-v> <c-r><c-p>+
+inoremap <c-v> <c-r>+
 cnoremap <c-v> <c-r>+
 
 "Well I'm using <c-v> for pasting, so cv can take it's place for visual block mode
@@ -133,8 +148,8 @@ nmap dk d<Plug>(easymotion-k)
 map <leader><leader> <Plug>(easymotion-bd-w)
 
 "Make n/N consistent
-noremap <expr> n 'Nn'[v:searchforward]
-noremap <expr> N 'nN'[v:searchforward]
+"noremap <expr> n 'Nn'[v:searchforward]
+"noremap <expr> N 'nN'[v:searchforward]
 
 "Change VIM's default regexp scheme, now all characters are literals in searches
 "If I want to togge this I can simply press backspace and type small v
@@ -170,11 +185,11 @@ nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
-"Resize splits easier
-nnoremap + <c-w>>
-nnoremap - <c-w><
-nnoremap <leader>+ <c-w>+
-nnoremap <leader>- <c-w>-
+"Resize splits with arrow keys in normal mode
+nnoremap <right> <c-w>>
+nnoremap <left> <c-w><
+nnoremap <up> <c-w>+
+nnoremap <down> <c-w>-
 nnoremap <leader>= <c-w>=
 
 "With this: Just record a scratch macro with qq, then play it back with backspace
@@ -226,9 +241,9 @@ nnoremap <leader>s :%s///g<left><left>
 "More intuative code completion
 inoremap <c-space> <c-x><c-o>
 
-"Eval the whole buffer (fireplace)
-nnoremap <leader>e :%Eval<cr>
-vnoremap <leader>e :Eval<cr>
+"Shorter eval for fireplace:
+"nmap <leader>e cpp
+"vnoremap <leader>e :Eval<cr>
 
 "Reload the current namespace (fireplace)
 autocmd Filetype clojure nnoremap <leader>r :Require!<cr>
@@ -236,19 +251,21 @@ autocmd Filetype clojure nnoremap <leader>r :Require!<cr>
 "Quick run script (ruby)
 autocmd Filetype ruby nnoremap <leader>r :QuickRun<cr>
 
-"Adds convenient debugging macros for Clojure:
-inoremap <c-d> ;; Use (break 0) where you need a breakpoint AND run the program through a REPL, like this: clojurec> (load-file "main.clj")
-(use 'debugger.core) ;; NOTE: this includes the dbg macro.
+"Adds convenient debugging macros for Python:
+" inoremap <c-d> (defmacro dbg [body] `(let [x# ~body] (println "dbg:" '~body "=>" x#) x#))
+inoremap <c-d> import pdb; pdb.set_trace()
 
 "Store relative line number jumps in the jumplist.
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+"nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+"nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 
 "Show a list of my most used files and directories.
 nnoremap <leader>p :<c-u>CtrlPLauncher<cr>
 
 "Easier access to the null register.
-nnoremap g_ "_
+nnoremap <leader>x "_x
+vnoremap <leader>x "_x
+nnoremap <leader>d "_d
 
 "With this I get relative numbers when I need them.
 nnoremap <silent> <leader>l :<c-u>set relativenumber!<cr>
@@ -266,6 +283,15 @@ nmap S <Plug>Ysurround
 "Quickly switch buffers.
 nmap <leader>b :CtrlPBuffer<cr>
 
+"Easily edit the macro stored at register q
+nnoremap <leader>q :<c-u><c-r><c-r>='let @q = '. string(getreg('q'))<cr><c-f><left>
+
+"Make c-[ work in console mode
+tnoremap <c-[> <C-W>N
+
+"Make c-r work in console mode
+tnoremap <c-r> <C-W>"
+
 "----------------------------------- Plugins and GUI ------------------------------------
 
 "Disable the matchparens plugin by default
@@ -277,15 +303,24 @@ autocmd Filetype clojure,scheme,hy,lisp unlet! g:loaded_matchparen | runtime plu
 set guioptions-=T "I don't want the gui tool bar
 set guioptions-=m "I don't want the gui menu bar
 set guitablabel=%N:%M%t " Show tab numbers
-set guifont=Consolas:h11:cDEFAULT "Font for gvim
-"set guifont=Courier_New:h11:cDEFAULT "Font for gvim
+"set guifont=Consolas:h12:cDEFAULT "Font for gvim
+set guifont=Courier_New:h12.5:cDEFAULT "Font for gvim
 
 "Window size for gvim
 if has("gui_running")
-  set lines=40
-  set columns=115
+  set lines=45
+  set columns=110
   winpos 125 60
 endif
+
+"Show nterw listings as a directory structure
+let g:netrw_liststyle = 3
+
+"Open the selected file in a new tab
+let g:netrw_browse_split = 4
+
+"Small netrw window
+let g:netrw_winsize = 25
 
 "HTML INDENT SETTINGS
 let g:html_indent_inctags = "html,body,head,tbody,li,p"
@@ -303,66 +338,13 @@ let g:ctrlp_custom_ignore = {
 \ }
 "let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 
-"Set vim-slime to connect with ConEmu
-let g:slime_target = "conemu"
-
-"VIM airline settings:
-let g:airline_theme = 'solarized'
-call airline#parts#define_accent('mode', 'none')
-let g:airline_solarized_normal_gray = 1
-let g:airline_solarized_dark_inactive_border = 1
-let g:airline_detect_modified=0                    "Don't want different colors for modified files.
-let g:airline#extensions#whitespace#enabled = 0    "Don't do whitespace checks (they distract me).
-let g:airline_mode_map = {
-\ '__' : '-',
-\ 'n'  : 'N',
-\ 'i'  : 'I',
-\ 'R'  : 'R',
-\ 'c'  : 'C',
-\ 'v'  : 'V',
-\ 'V'  : 'V',
-\ '' : 'V',
-\ 's'  : 'S',
-\ 'S'  : 'S',
-\ '' : 'S',
-\ }
-
-"Airline separators:
-let g:airline_symbols = {}
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols = {}
-let g:airline_symbols.linenr = '|'
-
-"Tabline settings:
-"let g:airline#extensions#tabline#enabled = 1     "Show buffers and tabs.
-"let g:airline#extensions#tabline#tab_nr_type = 1 "Put a number in-front of the tabs.
-"Don't show buffers/tabs if opened only one file is opened.
-"let g:airline#extensions#tabline#buffer_min_count = 2
-"let g:airline#extensions#tabline#tab_min_count = 2
-"Just show the filename (no path) in the tab
-"let g:airline#extensions#tabline#fnamemod = ':t'
+"Simple command to bring up a tree explorer:
+command! TREE Vexplore
+cabbrev tree TREE
 
 "VIM-GO settings:
 let g:go_fmt_autosave = 0
 au FileType go nmap <leader>i <Plug>(go-info)
-
-"Resize the GUI window to align with ConEmu
-function Stay()
-  set lines=37
-  set columns=160
-  winpos 0 -5
-endfunction
-
-"Canvenient command that calls the above function
-command! STAY call Stay()
-cabbrev stay STAY
-
-"Simple command to bring up nerd tree
-command! TREE NERDTreeToggle
-cabbrev tree TREE
 
 "Quickly open a command prompt in the currect directory
 command! CMD let d=expand("%:p:h") | execute '!start cmd /k cd "' . d . '"'
@@ -371,3 +353,14 @@ cabbrev cmd CMD
 "Quickly cd to the currect directory
 command! CDD let d=expand("%:p:h") | execute 'cd ' . d
 cabbrev cdd CDD
+
+"Hex edit commands:
+command! HEX  execute '%!xxd'
+cabbrev hex HEX
+command! TEXT  execute '%!xxd -r'
+cabbrev text TEXT
+
+"Vim-Slime settings
+let g:slime_target = "vimterminal"
+xmap <leader>s <Plug>SlimeRegionSend
+nmap <leader>e vafo<leader>s
