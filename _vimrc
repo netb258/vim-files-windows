@@ -76,8 +76,9 @@ set statusline+=%m       "modified flag
 set statusline+=%r       "read only flag
 set statusline+=%y       "filetype
 set statusline+=%=       "left/right separator
-set statusline+=%{&keymap=='bulgarian-phonetic'?'<BG>':'<ENG>'} "language
-set statusline+=%{strlen(&fenc)?&fenc:'none'}[ "file encoding
+set statusline+=%{&keymap=='bulgarian-phonetic'?'<BG>':'<EN>'} "language
+set statusline+=\ «      "small visual separator right
+set statusline+=\ %{strlen(&fenc)?&fenc:'none'}[ "file encoding
 set statusline+=%{&ff}]  "file format
 set statusline+=\ «      "small visual separator right
 set statusline+=\ %P\ \| "percent through file
